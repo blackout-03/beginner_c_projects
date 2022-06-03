@@ -100,7 +100,7 @@ void comp_guesses(){
 
     }
 
-    printf("Test done"); //! No the fuck it isn't, fix this shit
+    printf("Test done");
 
 
 }

@@ -67,7 +67,7 @@ void comp_guesses(){
     int lower = 0, upper = 100, guesses = 0;
     
     srand(time(0));
-    int guess = (rand() % (upper-lower + 1) + lower);
+    int guess = (rand() % (upper-lower + 1));
 
     char ask;
     printf("\nIs %d higher (h), lower (l) or equal (e) to your number? ", guess);
@@ -77,30 +77,42 @@ void comp_guesses(){
         scanf(" %c", &ask);
     }
 
-    while(guesses < 10 && ask != 'e'){
-        guesses ++;
+    while(ask != 'e' && guesses < 10){
+
+        while(ask != 'h' && ask != 'l' && ask != 'e'){
+            printf("\nInvalid Input. Try again: ");
+            scanf(" %c", &ask);
+        
+        }
 
         if(ask == 'h'){
-            
+            guesses ++;
             upper = guess - 1;
             guess = (rand() % (upper-lower + 1) + lower);
-            printf("\nWhat about %d? ");
+            printf("\nWhat about %d? ", guess);
             scanf(" %c", &ask);
 
         }
-
-        else if (ask == 'l'){
-            
+        
+        else if(ask == 'l'){
+            guesses ++;
             lower = guess + 1;
             guess = (rand() % (upper-lower + 1) + lower);
-            printf("\nWhat about %d? ");
-            scanf(" %c", &ask);
-
+            printf("\nWhat about %d? ", guess);
+            scanf(" %c", &ask);            
         }
 
+
+    } //At this point, either number guessed, or guess limit reached
+
+    if(ask == 'e'){
+        printf("\nI have guessed your number within %d guesses: %d", guesses, guess);
+    } else if(guesses == 10){
+        printf("\nI give up. You win.");
     }
 
-    printf("Test done"); //! No the fuck it isn't, fix this shit
+    play_again(comp_guesses);
+
 
 
 }
@@ -116,6 +128,7 @@ void play_again(void mode()){
         printf("\nThank you for playing.\n");
     }
 }
+
 
 int main(){
 

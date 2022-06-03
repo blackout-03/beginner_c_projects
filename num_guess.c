@@ -12,7 +12,6 @@ int numbergen(){
     return number;
 }
 
-
 void user_guesses(){
     
     int guess;
@@ -124,16 +123,47 @@ void play_again(void mode()){
 
     if(choice == 'y'){
         mode();
-    } else{
-        printf("\nThank you for playing.\n");
+    } else if(choice == 'n'){ //User may want to switch between game modes
+        char playing_choice;
+        printf("\nWould you like to switch to a different game mode? y/n ");
+        scanf(" %c", &playing_choice);
+        while(playing_choice != 'y' && playing_choice != 'n'){
+            printf("\nInvalid Input. Would you like to play again? y/n");
+            scanf(" %c", &playing_choice);
+        }
+
+        if(playing_choice == 'y'){
+            session();
+        }else{
+            printf("\nThank you for playing.");
+        }
+
     }
+}
+
+void session(){ //User interface to pick, and then switch between, game modes
+    int choice;
+    printf("\nGame 1 is where you guess the computer\'s number.\nGame 2 is where the computer guesses yours.\nSelect mode 1 or 2: ");
+    scanf("%d", &choice);
+
+    while(choice != 1 && choice != 2){
+        printf("\nInvalid Input. Select mode 1 or 2: ");
+        scanf("%d", choice);
+    }
+
+    if(choice == 1){
+        user_guesses();
+    } else{
+        comp_guesses();
+    }
+
+    
 }
 
 
 int main(){
-
-    //user_guesses();
-    comp_guesses();
+    
+    session();
 
     return 0;
 }
